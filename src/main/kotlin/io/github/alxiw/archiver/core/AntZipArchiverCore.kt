@@ -1,4 +1,4 @@
-package io.github.alxiw.kotlinarchiver.core
+package io.github.alxiw.archiver.core
 
 import org.apache.tools.zip.ZipEntry
 import org.apache.tools.zip.ZipFile
@@ -116,31 +116,25 @@ class AntZipArchiverCore : ArchiverCore {
 
     private fun watchDir(zos: ZipOutputStream, path: String?, prefix: String): Int {
         var errorCount = 0
-        if (path != null) {
-            val filePath = File(path)
+        path?.let {
+            val filePath = File(it)
             val listFiles = filePath.listFiles()
             if (listFiles == null) {
                 errorCount++
-            } else {
-                when {
-                    filePath.isDirectory -> for (child in listFiles) {
-                        errorCount += watchDir(
-                            zos,
-                            child.path,
-                            if (prefix !== "") prefix + File.separatorChar + filePath.name else filePath.name
-                        )
-                    }
-                    filePath.exists() -> {
-                        archiveFile(
-                            zos,
-                            path,
-                            if (prefix !== "") prefix + File.separatorChar + filePath.name else filePath.name
-                        )
-                    }
-                    else -> errorCount++
+            } else if (filePath.isDirectory) {
+                for (child in listFiles) {
+                    errorCount += watchDir(
+                        zos,
+                        child.path,
+                        if (prefix.isNotEmpty()) prefix + File.separatorChar + filePath.name else filePath.name
+                    )
                 }
+            } else if (filePath.exists()) {
+                archiveFile(zos, it, if (prefix.isNotEmpty()) prefix + File.separatorChar + filePath.name else filePath.name)
+            } else {
+                errorCount++
             }
-        } else {
+        } ?: run {
             errorCount++
         }
         return errorCount

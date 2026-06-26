@@ -1,0 +1,13 @@
+[versions]
+kotlin = "2.0.21"
+shadow = "9.4.3"
+ant = "1.10.11"
+commons-cli = "1.4"
+
+[libraries]
+org-apache-ant-ant = { module = "org.apache.ant:ant", version.ref = "ant" }
+commons-cli-commons-cli = { module = "commons-cli:commons-cli", version.ref = "commons-cli" }
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }

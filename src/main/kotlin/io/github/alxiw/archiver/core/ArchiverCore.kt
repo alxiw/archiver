@@ -1,4 +1,4 @@
-package io.github.alxiw.kotlinarchiver.core
+package io.github.alxiw.archiver.core
 
 interface ArchiverCore {
 

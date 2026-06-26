@@ -1,4 +1,4 @@
-package io.github.alxiw.kotlinarchiver.parser
+package io.github.alxiw.archiver.parser
 
 enum class Actions(val action: String, val format: String) {
 

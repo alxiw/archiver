@@ -1,9 +1,9 @@
-package io.github.alxiw.kotlinarchiver.controller
+package io.github.alxiw.archiver.controller
 
-import io.github.alxiw.kotlinarchiver.ArchiveException
-import io.github.alxiw.kotlinarchiver.core.ArchiverCore
-import io.github.alxiw.kotlinarchiver.core.AntZipArchiverCore
-import io.github.alxiw.kotlinarchiver.parser.Command
+import io.github.alxiw.archiver.ArchiveException
+import io.github.alxiw.archiver.core.ArchiverCore
+import io.github.alxiw.archiver.core.AntZipArchiverCore
+import io.github.alxiw.archiver.parser.Command
 
 class ArchiverController {
 

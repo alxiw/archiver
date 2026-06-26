@@ -1,4 +1,4 @@
-package io.github.alxiw.kotlinarchiver.parser
+package io.github.alxiw.archiver.parser
 
 import org.apache.commons.cli.DefaultParser
 import org.apache.commons.cli.Option

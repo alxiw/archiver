@@ -1,9 +1,9 @@
-package io.github.alxiw.kotlinarchiver
+package io.github.alxiw.archiver
 
-import io.github.alxiw.kotlinarchiver.controller.ArchiverController
-import io.github.alxiw.kotlinarchiver.parser.Actions
-import io.github.alxiw.kotlinarchiver.parser.Command
-import io.github.alxiw.kotlinarchiver.parser.CommandParser
+import io.github.alxiw.archiver.controller.ArchiverController
+import io.github.alxiw.archiver.parser.Actions
+import io.github.alxiw.archiver.parser.Command
+import io.github.alxiw.archiver.parser.CommandParser
 import org.apache.commons.cli.ParseException
 
 fun main(args: Array<String>) {
@@ -35,8 +35,8 @@ fun main(args: Array<String>) {
 
 private fun printHelpMessage() {
     println("Available actions in the command line")
-    for (i in Actions.values().indices) {
-        println("${i + 1}. ${Actions.values()[i].action}\n   ${Actions.values()[i].format}")
+    for (i in Actions.entries.toTypedArray().indices) {
+        println("${i + 1}. ${Actions.entries[i].action}\n   ${Actions.entries[i].format}")
     }
 }
 
