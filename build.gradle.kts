@@ -6,7 +6,7 @@ plugins {
 group = "io.github.alxiw"
 version = "1.0"
 description = "archiver"
-java.sourceCompatibility = JavaVersion.VERSION_17
+java.sourceCompatibility = JavaVersion.VERSION_21
 
 repositories {
     mavenCentral()
@@ -18,7 +18,7 @@ dependencies {
 }
 
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(21)
 }
 
 tasks.named<Jar>("shadowJar") {
@@ -26,12 +26,4 @@ tasks.named<Jar>("shadowJar") {
     manifest {
         attributes["Main-Class"] = "io.github.alxiw.archiver.ArchiverKt"
     }
-}
-
-tasks.withType<JavaCompile> {
-    options.encoding = "UTF-8"
-}
-
-tasks.withType<Javadoc> {
-    options.encoding = "UTF-8"
 }

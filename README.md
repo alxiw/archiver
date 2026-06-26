@@ -14,7 +14,7 @@ A simple tool for working with zip archives from the command line.
 
 Make sure you have installed:
 
-- [JDK17](https://github.com/openjdk/jdk17)
+- [JDK21](https://github.com/openjdk/jdk21)
 - [Gradle](https://github.com/gradle/gradle)
 - [Kotlin](https://github.com/jetbrains/kotlin)
 
@@ -58,9 +58,7 @@ Use the following arguments to perform the appropriate action (square brackets m
 
 ## Dependencies
 
-The following dependencies are used in the project:
-
-- [Kotlin](https://github.com/JetBrains/kotlin) 2.0.21
+- [Kotlin](https://github.com/JetBrains/kotlin) 2.4.0
 - [Apache Ant](https://github.com/apache/ant) 1.10.11
 - [Apache Commons CLI](https://github.com/apache/commons-cli) 1.4
 
