@@ -13,7 +13,7 @@ repositories {
 }
 
 dependencies {
-    implementation(libs.org.apache.ant.ant)
+    implementation(libs.org.apache.commons.compress)
     implementation(libs.commons.cli.commons.cli)
 }
 

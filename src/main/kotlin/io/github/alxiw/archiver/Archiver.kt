@@ -1,6 +1,7 @@
 package io.github.alxiw.archiver
 
 import io.github.alxiw.archiver.controller.ArchiverController
+import io.github.alxiw.archiver.core.CommonsZipArchiverCore
 import io.github.alxiw.archiver.parser.Actions
 import io.github.alxiw.archiver.parser.Command
 import io.github.alxiw.archiver.parser.CommandParser
@@ -17,7 +18,8 @@ fun main(args: Array<String>) {
             } else {
                 println(command.toString())
                 try {
-                    val controller = ArchiverController()
+                    val core = CommonsZipArchiverCore()
+                    val controller = ArchiverController(core)
                     controller.execute(command)
                     println("Done!")
                 } catch (e: ArchiveException) {

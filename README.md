@@ -59,7 +59,7 @@ Use the following arguments to perform the appropriate action (square brackets m
 ## Dependencies
 
 - [Kotlin](https://github.com/JetBrains/kotlin) 2.4.0
-- [Apache Ant](https://github.com/apache/ant) 1.10.11
+- [Apache Commons Compress](https://github.com/apache/commons-compress) 1.28.0
 - [Apache Commons CLI](https://github.com/apache/commons-cli) 1.4
 
 ## License

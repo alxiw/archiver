@@ -2,44 +2,44 @@ package io.github.alxiw.archiver.controller
 
 import io.github.alxiw.archiver.ArchiveException
 import io.github.alxiw.archiver.core.ArchiverCore
-import io.github.alxiw.archiver.core.AntZipArchiverCore
 import io.github.alxiw.archiver.parser.Command
 
-class ArchiverController {
-
-    private var arc: ArchiverCore? = null
+class ArchiverController(
+    private val archiverCore: ArchiverCore
+) {
 
     @Throws(ArchiveException::class)
     fun execute(command: Command) {
-        if (command.zip?.endsWith(".zip") == true) {
-            this.arc = AntZipArchiverCore()
-            perform(command)
-        } else {
+        val zipPath = command.zip
+        if (zipPath == null || !zipPath.endsWith(".zip")) {
             throw ArchiveException()
         }
+
+        perform(command, zipPath)
     }
 
     @Throws(ArchiveException::class)
-    private fun perform(command: Command) {
+    private fun perform(command: Command, zipPath: String) {
         when (command.name) {
-            "p" -> command.zip?.let { zip ->
-                command.sources?.let {
-                    arc?.pack(path = zip, sources = it, comment = command.comment)
+            "p" -> {
+                command.sources?.let { sources ->
+                    archiverCore.pack(path = zipPath, sources = sources, comment = command.comment)
                 }
             }
-            "a" -> command.zip?.let { zip ->
-                command.sources?.let {
-                    arc?.add(path = zip, sources = it)
+            "a" -> {
+                command.sources?.let { sources ->
+                    archiverCore.add(path = zipPath, sources = sources)
                 }
-                command.comment?.let {
-                    arc?.setComment(path = zip, comment = it)
+                command.comment?.let { comment ->
+                    archiverCore.setComment(path = zipPath, comment = comment)
                 }
             }
-            "e" -> command.zip?.let { zip ->
-                arc?.extract(path = zip, out = command.out)
+            "e" -> {
+                archiverCore.extract(path = zipPath, out = command.out)
             }
-            "g" -> command.zip?.let { zip ->
-                println("comment: ${arc?.getComment(zip) ?: "<empty>"}")
+            "g" -> {
+                val comment = archiverCore.getComment(zipPath) ?: "<empty>"
+                println("comment: $comment")
             }
             else -> throw ArchiveException()
         }

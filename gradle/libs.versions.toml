@@ -1,11 +1,11 @@
 [versions]
 kotlin = "2.4.0"
 shadow = "9.4.3"
-ant = "1.10.11"
+compress = "1.28.0"
 commons-cli = "1.4"
 
 [libraries]
-org-apache-ant-ant = { module = "org.apache.ant:ant", version.ref = "ant" }
+org-apache-commons-compress = { module = "org.apache.commons:commons-compress", version.ref = "compress" }
 commons-cli-commons-cli = { module = "commons-cli:commons-cli", version.ref = "commons-cli" }
 
 [plugins]
