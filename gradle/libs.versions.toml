@@ -2,11 +2,11 @@
 kotlin = "2.4.0"
 shadow = "9.4.3"
 compress = "1.28.0"
-commons-cli = "1.4"
+clikt = "4.4.0"
 
 [libraries]
 org-apache-commons-compress = { module = "org.apache.commons:commons-compress", version.ref = "compress" }
-commons-cli-commons-cli = { module = "commons-cli:commons-cli", version.ref = "commons-cli" }
+ajalt-clikt =  { module = "com.github.ajalt.clikt:clikt", version.ref = "clikt" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

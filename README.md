@@ -38,19 +38,19 @@ Use the following arguments to perform the appropriate action (square brackets m
 
 ```sh
 # packing files into the zip archive with the ability to add a comment
--p -z target_file.zip -s source_file_or_dir_1 source_file_or_dir_2 ... [-c "comment"]
+pack -z target_file.zip -s source_file_or_dir_1 source_file_or_dir_2 ... [-c "comment"]
 
 # add files into the existing zip archive
--a -z target_file.zip -s source_file_or_dir_1 source_file_or_dir_2 ...
+add -z target_file.zip -s source_file_or_dir_1 source_file_or_dir_2 ...
 
 # add an archive comment
--a -z target_file.zip -c "comment"
+add -z target_file.zip -c "comment"
 
 # extract the archive with the ability to specify destination directory
--e -z archive.zip [-o out_dir]
+extract -z archive.zip [-o out_dir]
 
 # get the archive comment
--g -z archive.zip
+comment -z archive.zip
 
 # help
 -h
@@ -60,7 +60,7 @@ Use the following arguments to perform the appropriate action (square brackets m
 
 - [Kotlin](https://github.com/JetBrains/kotlin) 2.4.0
 - [Apache Commons Compress](https://github.com/apache/commons-compress) 1.28.0
-- [Apache Commons CLI](https://github.com/apache/commons-cli) 1.4
+- [Clikt](https://github.com/ajalt/clikt) 4.4.0
 
 ## License
 

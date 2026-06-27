@@ -2,7 +2,7 @@ package io.github.alxiw.archiver.controller
 
 import io.github.alxiw.archiver.ArchiveException
 import io.github.alxiw.archiver.core.ArchiverCore
-import io.github.alxiw.archiver.parser.Command
+import io.github.alxiw.archiver.model.Command
 
 class ArchiverController(
     private val archiverCore: ArchiverCore

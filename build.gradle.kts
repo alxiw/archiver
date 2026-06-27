@@ -14,7 +14,7 @@ repositories {
 
 dependencies {
     implementation(libs.org.apache.commons.compress)
-    implementation(libs.commons.cli.commons.cli)
+    implementation(libs.ajalt.clikt)
 }
 
 kotlin {
