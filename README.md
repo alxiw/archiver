@@ -1,6 +1,6 @@
 # Archiver
 
-A simple tool for working with zip archives from the command line.
+A lightweight tool for working with zip archives from the command line.
 
 ## Features
 
@@ -9,22 +9,6 @@ A simple tool for working with zip archives from the command line.
 - If a directory is specified instead of an input file, the utility packages its contents recursively
 - Unpacking an archive with the ability to specify (existing or not existing) a directory for it
 - Archive comment support: reading comments from an archive, adding a comment to an archive, creating an archive with a comment
-
-## Building
-
-Make sure you have installed:
-
-- [JDK21](https://github.com/openjdk/jdk21)
-- [Gradle](https://github.com/gradle/gradle)
-- [Kotlin](https://github.com/jetbrains/kotlin)
-
-Then run the following command in the root directory of the project:
-
-```sh
-./gradlew clean shadowJar
-```
-
-It creates `archiver.jar` there.
 
 ## Usage
 
@@ -56,7 +40,23 @@ comment -z archive.zip
 -h
 ```
 
-## Dependencies
+## Building
+
+Make sure you have installed:
+
+- [JDK21](https://github.com/openjdk/jdk21)
+- [Gradle](https://github.com/gradle/gradle)
+- [Kotlin](https://github.com/jetbrains/kotlin)
+
+Then run the following command in the root directory of the project:
+
+```sh
+./gradlew clean shadowJar
+```
+
+It creates `archiver-1.0.jar` in `build/libs`.
+
+## Technologies
 
 - [Kotlin](https://github.com/JetBrains/kotlin) 2.4.0
 - [Apache Commons Compress](https://github.com/apache/commons-compress) 1.28.0
