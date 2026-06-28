@@ -1,60 +1,50 @@
 # Archiver
 
-A lightweight tool for working with zip archives from the command line.
+A lightweight CLI tool for working with ZIP archives.
 
 ## Features
 
-- Packing files into one zip file
-- Adding files to an existing zip archive
-- If a directory is specified instead of an input file, the utility packages its contents recursively
-- Unpacking an archive with the ability to specify (existing or not existing) a directory for it
-- Archive comment support: reading comments from an archive, adding a comment to an archive, creating an archive with a comment
+- Pack files and directories into a ZIP archive
+- Add files to an existing ZIP archive
+- Extract a ZIP archive to a specified directory
+- Read and write ZIP archive comments
+- Recursive directory support
 
 ## Usage
 
-You can run the program in the following way:
-
 ```sh
-java -jar build/libs/archiver-1.0.jar [arguments]
+java -jar archiver-1.0.jar <command> [<options>]
 ```
 
-Use the following arguments to perform the appropriate action (square brackets mean optional):
-
 ```sh
-# packing files into the zip archive with the ability to add a comment
-pack -z target_file.zip -s source_file_or_dir_1 source_file_or_dir_2 ... [-c "comment"]
+# Pack files into a ZIP archive
+pack -z target.zip -s file_or_dir_1 -s file_or_dir_2 ... [-c "comment"]
 
-# add files into the existing zip archive
-add -z target_file.zip -s source_file_or_dir_1 source_file_or_dir_2 ...
+# Add files to an existing ZIP archive
+add -z target.zip -s file_or_dir_1 -s file_or_dir_2 ...
 
-# add an archive comment
-add -z target_file.zip -c "comment"
+# Add or update an archive comment
+add -z target.zip -c "comment"
 
-# extract the archive with the ability to specify destination directory
+# Extract an archive
 extract -z archive.zip [-o out_dir]
 
-# get the archive comment
+# Read an archive comment
 comment -z archive.zip
 
-# help
+# Help
 -h
 ```
 
 ## Building
 
-Make sure you have installed:
-
-- [JDK21](https://github.com/openjdk/jdk21)
-- [Gradle](https://github.com/gradle/gradle)
-- [Kotlin](https://github.com/jetbrains/kotlin)
-
-Then run the following command in the root directory of the project:
+Requires JDK 21 or higher. Then run:
 
 ```sh
 ./gradlew clean shadowJar
 ```
 
-It creates `archiver-1.0.jar` in `build/libs`.
+The resulting JAR will be in `build/libs/archiver-1.0.jar`.
 
 ## Technologies
 
