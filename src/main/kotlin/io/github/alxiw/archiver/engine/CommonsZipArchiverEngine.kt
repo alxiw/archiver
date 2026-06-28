@@ -1,4 +1,4 @@
-package io.github.alxiw.archiver.core
+package io.github.alxiw.archiver.engine
 
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry
 import org.apache.commons.compress.archivers.zip.ZipArchiveOutputStream
@@ -6,7 +6,7 @@ import org.apache.commons.compress.archivers.zip.ZipFile
 import java.io.File
 import kotlin.math.min
 
-class CommonsZipArchiverCore : ArchiverCore {
+class CommonsZipArchiverEngine : ArchiverEngine {
 
     private var bufferSize = 4096
 

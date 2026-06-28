@@ -1,6 +1,6 @@
-package io.github.alxiw.archiver.core
+package io.github.alxiw.archiver.engine
 
-interface ArchiverCore {
+interface ArchiverEngine {
 
     fun pack(path: String, sources: Array<String>, comment: String?): Int
     fun add(path: String, sources: Array<String>): Int

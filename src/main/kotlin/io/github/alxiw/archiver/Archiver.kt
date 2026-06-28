@@ -2,7 +2,7 @@ package io.github.alxiw.archiver
 
 import com.github.ajalt.clikt.core.subcommands
 import io.github.alxiw.archiver.controller.ArchiverController
-import io.github.alxiw.archiver.core.CommonsZipArchiverCore
+import io.github.alxiw.archiver.engine.CommonsZipArchiverEngine
 import io.github.alxiw.archiver.model.AddCommand
 import io.github.alxiw.archiver.model.MainCommand
 import io.github.alxiw.archiver.model.Action
@@ -11,8 +11,8 @@ import io.github.alxiw.archiver.model.GetCommentCommand
 import io.github.alxiw.archiver.model.PackCommand
 
 fun main(args: Array<String>) {
-    val core = CommonsZipArchiverCore()
-    val controller = ArchiverController(core)
+    val engine = CommonsZipArchiverEngine()
+    val controller = ArchiverController(engine)
 
     val executeController: (Action) -> Unit = { action ->
         println(action.toString())
