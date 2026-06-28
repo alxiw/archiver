@@ -24,6 +24,6 @@ kotlin {
 tasks.named<Jar>("shadowJar") {
     archiveClassifier.set("") // to name archiver-1.0.jar instead of archiver-1.0-all.jar
     manifest {
-        attributes["Main-Class"] = "io.github.alxiw.archiver.ArchiverKt"
+        attributes["Main-Class"] = "io.github.alxiw.archiver.AppKt"
     }
 }

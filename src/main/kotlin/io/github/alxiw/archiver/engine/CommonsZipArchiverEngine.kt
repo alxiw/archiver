@@ -4,59 +4,59 @@ import org.apache.commons.compress.archivers.zip.ZipArchiveEntry
 import org.apache.commons.compress.archivers.zip.ZipArchiveOutputStream
 import org.apache.commons.compress.archivers.zip.ZipFile
 import java.io.File
+import java.io.FileNotFoundException
+import java.io.IOException
 import kotlin.math.min
 
 class CommonsZipArchiverEngine : ArchiverEngine {
 
-    private var bufferSize = 4096
-
-    override fun pack(path: String, sources: Array<String>, comment: String?): Int {
-        var errorCount = 0
-
+    override fun pack(path: String, sources: Array<String>, comment: String?) {
         ZipArchiveOutputStream(File(path)).use { zos ->
             comment?.let { zos.setComment(it) }
             sources.forEach { source ->
-                errorCount += watchDir(zos, source, "")
+                watchDir(zos, source, "")
             }
         }
-
-        return errorCount
     }
 
-    override fun add(path: String, sources: Array<String>): Int {
-        var errorCount = 0
-
+    override fun add(path: String, sources: Array<String>) {
         val originalFile = File(path)
+        if (!originalFile.exists()) throw FileNotFoundException("Archive file not found: $path")
+
         val tempFile = File("${path}_temp")
+        if (!originalFile.renameTo(tempFile)) {
+            throw IOException("Failed to create temporary file for updating archive: ${tempFile.path}")
+        }
 
-        if (!originalFile.exists()) return 1
-        originalFile.renameTo(tempFile)
-
-        ZipArchiveOutputStream(originalFile).use { zos ->
-            rewriteZip(tempFile, zos)
-            sources.forEach { source ->
-                errorCount += watchDir(zos, source, "")
+        try {
+            ZipArchiveOutputStream(originalFile).use { zos ->
+                rewriteZip(tempFile, zos)
+                sources.forEach { source ->
+                    watchDir(zos, source, "")
+                }
             }
+        } finally {
+            tempFile.delete()
         }
-
-        tempFile.delete()
-        return errorCount
     }
 
-    override fun setComment(path: String, comment: String): Int {
+    override fun setComment(path: String, comment: String) {
         val originalFile = File(path)
+        if (!originalFile.exists()) throw FileNotFoundException("Archive file not found: $path")
+
         val tempFile = File("${path}_temp")
-
-        if (!originalFile.exists()) return 1
-        originalFile.renameTo(tempFile)
-
-        ZipArchiveOutputStream(originalFile).use { zos ->
-            rewriteZip(tempFile, zos)
-            zos.setComment(comment)
+        if (!originalFile.renameTo(tempFile)) {
+            throw IOException("Failed to create temporary file for updating archive: ${tempFile.path}")
         }
 
-        tempFile.delete()
-        return 1
+        try {
+            ZipArchiveOutputStream(originalFile).use { zos ->
+                rewriteZip(tempFile, zos)
+                zos.setComment(comment)
+            }
+        } finally {
+            tempFile.delete()
+        }
     }
 
     override fun extract(path: String, out: String?) {
@@ -75,7 +75,7 @@ class CommonsZipArchiverEngine : ArchiverEngine {
                     outFile.parentFile.mkdirs()
                     zip.getInputStream(entry).use { input ->
                         outFile.outputStream().use { output ->
-                            input.copyTo(output, bufferSize)
+                            input.copyTo(output)
                         }
                     }
                 }
@@ -100,27 +100,25 @@ class CommonsZipArchiverEngine : ArchiverEngine {
         return null
     }
 
-    private fun watchDir(zos: ZipArchiveOutputStream, path: String?, prefix: String): Int {
-        if (path == null) return 1
+    private fun watchDir(zos: ZipArchiveOutputStream, path: String?, prefix: String) {
+        if (path == null) throw IllegalArgumentException("Source path cannot be null")
+
         val file = File(path)
-        if (!file.exists()) return 1
+        if (!file.exists()) throw FileNotFoundException("Source file not found: $path")
 
         val entryName = if (prefix.isNotEmpty()) "$prefix/${file.name}" else file.name
 
-        return when {
+        when {
             file.isDirectory -> {
-                val listFiles = file.listFiles() ?: return 1
-                var errors = 0
+                val listFiles = file.listFiles() ?: throw IOException("Failed to list files in directory: $path")
                 listFiles.forEach { child ->
-                    errors += watchDir(zos, child.path, entryName)
+                    watchDir(zos, child.path, entryName)
                 }
-                errors
             }
             file.isFile -> {
                 archiveFile(zos, file, entryName)
-                0
             }
-            else -> 1
+            else -> throw IOException("Unsupported file type: $path")
         }
     }
 
@@ -128,7 +126,7 @@ class CommonsZipArchiverEngine : ArchiverEngine {
         val entry = ZipArchiveEntry(file, entryName)
         zos.putArchiveEntry(entry)
         file.inputStream().use { input ->
-            input.copyTo(zos, bufferSize)
+            input.copyTo(zos)
         }
         zos.closeArchiveEntry()
     }
@@ -140,7 +138,7 @@ class CommonsZipArchiverEngine : ArchiverEngine {
                 val entry = entries.nextElement()
                 zos.putArchiveEntry(ZipArchiveEntry(entry.name))
                 sZip.getInputStream(entry).use { input ->
-                    input.copyTo(zos, bufferSize)
+                    input.copyTo(zos)
                 }
                 zos.closeArchiveEntry()
             }
